@@ -1,0 +1,87 @@
+﻿@model CheersMandu.Models.ShoppingCartViewModel
+
+<div class="row checkoutForm">
+    <h2>Your shopping cart</h2>
+    <h4>Here are the drinks in your shopping cart.</h4>
+    <hr />
+
+    @if (Model.ShoppingCart.ShoppingCartItems.Count > 0)
+    {
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Amount</th>
+                    <th>Drink</th>
+                    <th class="text-right">Price</th>
+                    <th class="text-right">Subtotal</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ShoppingCart.ShoppingCartItems)
+                {
+                    <tr>
+                        <td class="text-center">@item.Amount</td>
+                        <td>@item.Drink.Name</td>
+                        <td class="text-right">@item.Drink.Price.ToString("c")</td>
+                        <td class="text-right">
+                            @((item.Amount * item.Drink.Price).ToString("c"))
+                        </td>
+                        <td class="text-center">
+                            <a class="btn btn-sm btn-danger"
+                               asp-controller="ShoppingCart"
+                               asp-action="RemoveFromShoppingCart"
+                               asp-route-drinkId="@item.Drink.DrinkId">
+                                Remove
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="text-right"><strong>Total:</strong></td>
+                    <td class="text-right">
+                        <strong>@Model.ShoppingCartTotal.ToString("c")</strong>
+                    </td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="text-right mt-3">
+            <a class="btn btn-success" asp-controller="Order" asp-action="Checkout">
+                Check out
+            </a>
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                    Add more drinks
+                </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a class="dropdown-item" asp-controller="Drink" asp-action="List" asp-route-category="Alcoholic">
+                            Alcoholic
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" asp-controller="Drink" asp-action="List" asp-route-category="Non-alcoholic">
+                            Non-alcoholic
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a class="dropdown-item" asp-controller="Drink" asp-action="List">
+                            View all drinks
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    }
+    else
+    {
+        <p>Your shopping cart is empty.</p>
+        <a class="btn btn-primary" asp-controller="Drink" asp-action="List">Browse drinks</a>
+    }
+</div>

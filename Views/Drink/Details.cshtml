@@ -1,0 +1,41 @@
+﻿@model CheersMandu.Models.Drink
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="container marginTop">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="@Model.ImageUrl" class="img-fluid rounded shadow" alt="@Model.Name"
+                 style="max-height: 400px; object-fit: cover; width: 100%;" />
+        </div>
+
+        <div class="col-md-6">
+            <h2>@Model.Name</h2>
+            <p class="text-muted">@Model.ShortDescription</p>
+
+            <h4 class="text-success">@Model.Price.ToString("c")</h4>
+
+            <hr />
+
+            <h5>Description</h5>
+            <p>@Model.LongDescription</p>
+
+            <div class="mt-4">
+                <a class="btn btn-success btn-lg"
+                   asp-controller="ShoppingCart"
+                   asp-action="AddToShoppingCart"
+                   asp-route-drinkId="@Model.DrinkId">
+                    Add to cart
+                </a>
+
+                <a class="btn btn-outline-secondary btn-lg ms-2"
+                   asp-controller="Drink"
+                   asp-action="List">
+                    Show all drinks
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

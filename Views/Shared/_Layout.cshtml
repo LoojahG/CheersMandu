@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CheersMandu</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
+            <div class="container">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">CheersMandu</a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="mainNavbar">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+
+                        @* Category Menu View Component *@
+                        @await Component.InvokeAsync("CategoryMenu")
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="About" asp-action="Index">About</a>
+                        </li>
+
+                        @* Shopping Cart Summary *@
+                        @await Component.InvokeAsync("ShoppingCartSummary")
+                    </ul>
+
+                    @* Login / Register Partial *@
+                    <partial name="LoginPartial" />
+
+                    @* Search Form *@
+                    <form class="d-flex ms-3" asp-controller="Drink" asp-action="Search" method="get">
+                        <input class="form-control me-2" type="search"
+                               placeholder="Search for a drink"
+                               name="searchString"
+                               value="@ViewData["searchString"]">
+                        <button class="btn btn-outline-light" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container body-content" style="padding-top: 80px;">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>
+                <a target="_blank" href="https://github.com/LoojahG">
+                    &copy; 2026 - Loojah Ghaju
+                </a>
+            </p>
+        </footer>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
