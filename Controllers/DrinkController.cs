@@ -1,16 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using CheersMandu.Data.interfaces;
+﻿using CheersMandu.Data.interfaces;
+using CheersMandu.Data.Repositories.Dapper;
 using CheersMandu.Models;
 using CheersMandu.ViewModel;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CheersMandu.Controllers
 {
     public class DrinkController : Controller
     {
+        // this controller uses the Dapper implementations
+
         private readonly IDrinkRepository _drinkRepository;
         private readonly ICategoryRepository _categoryRepository;
 
-        public DrinkController(IDrinkRepository drinkRepository, ICategoryRepository categoryRepository)
+        public DrinkController(DapperDrinkRepository drinkRepository, DapperCategoryRepository categoryRepository)
         {
             _drinkRepository = drinkRepository;
             _categoryRepository = categoryRepository;
