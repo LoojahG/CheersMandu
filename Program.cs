@@ -1,17 +1,20 @@
 using CheersMandu.Data;
 using CheersMandu.Data.interfaces;
+using CheersMandu.Data.Interfaces;
+using CheersMandu.Data.Repositories;
+using CheersMandu.Data.Repositories.Dapper;
+using CheersMandu.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using CheersMandu.Data.Repositories;
 using System;
-using CheersMandu.Data.Interfaces;
-using CheersMandu.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Database
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+// Dapper support
+builder.Services.AddSingleton<IDbConnectionFactory, SqlConnectionFactory>();
 
 // Identity
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
@@ -22,6 +25,9 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
 builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
 builder.Services.AddTransient<IDrinkRepository, DrinkRepository>();
 builder.Services.AddTransient<IOrderRepository, OrderRepository>();
+// Dapper repositories (only used by DrinkController)
+builder.Services.AddTransient<DapperDrinkRepository>();
+builder.Services.AddTransient<DapperCategoryRepository>();
 
 // Shopping Cart
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
