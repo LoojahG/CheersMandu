@@ -1,6 +1,7 @@
 ﻿using CheersMandu.Data.interfaces;
 using CheersMandu.Models;
 using Dapper;
+using Microsoft.AspNetCore.Connections;
 
 namespace CheersMandu.Data.Repositories.Dapper
 {

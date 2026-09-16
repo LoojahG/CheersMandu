@@ -3,7 +3,7 @@ using System.Data;
 
 namespace CheersMandu.Data
 {
-    public class SqlConnectionFactory : IDbConnectionFactory
+    public class SqlConnectionFactory: IDbConnectionFactory
     {
         private readonly string _connectionString;
 

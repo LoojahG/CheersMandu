@@ -25,7 +25,7 @@ namespace CheersMandu.Data.Repositories.Dapper
                     INNER JOIN Categories c ON d.CategoryId = c.CategoryId";
 
                 return connection.Query<Drink, Category, Drink>(
-                    sql,(drink, category) =>
+                    sql,(drink, category) => 
                     {
                         drink.Category = category;
                         return drink;
